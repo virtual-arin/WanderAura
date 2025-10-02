@@ -4,7 +4,7 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const Listing = require("../models/listing.model.js");
 const { validateListing } = require("../middleware.js");
 
-//Index Route (was previously "/")
+//Index Route
 router.get(
   "/",
   wrapAsync(async (req, res) => {
@@ -24,6 +24,10 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id).populate("reviews");
+    if (!listing) {
+      req.flash("error", "The Requested Listing Doesn't Exist Anymore!");
+      return res.redirect("/listings");
+    }
     res.render("listings/show.ejs", { listing });
   })
 );
@@ -35,6 +39,7 @@ router.post(
   wrapAsync(async (req, res, next) => {
     const newListing = new Listing(req.body.listing);
     await newListing.save();
+    req.flash("success", "New Listing Created!");
     res.redirect("/listings");
   })
 );
@@ -45,6 +50,10 @@ router.get(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
+    if (!listing) {
+      req.flash("error", "The Requested Listing Doesn't Exist Anymore!");
+      return res.redirect("/listings");
+    }
     res.render("listings/edit.ejs", { listing });
   })
 );
@@ -56,6 +65,7 @@ router.put(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    req.flash("success", "Listing Updated Successfully!");
     res.redirect(`/listings/${id}`);
   })
 );
@@ -66,7 +76,7 @@ router.delete(
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
-    console.log(deletedListing);
+    req.flash("success", "Listing Deleted Successfully!");
     res.redirect("/listings");
   })
 );
