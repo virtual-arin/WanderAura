@@ -22,3 +22,15 @@ module.exports.validateReview = (req, res, next) => {
     next();
   }
 };
+
+//Authentication functionality
+module.exports.isLoggedInUser = (req, res, next) => {
+  if (!req.isAuthenticated()) {
+    req.flash(
+      "error",
+      "You must be logged in to your account to create listing!"
+    );
+    return res.redirect("/login");
+  }
+  next();
+};

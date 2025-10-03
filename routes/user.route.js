@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/user.model.js");
 const passport = require("passport");
 
+//Signup functionality
 router.get("/signup", (req, res) => {
   res.render("user/signup.ejs");
 });
@@ -20,6 +21,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+//Login functionality
 router.get("/login", (req, res) => {
   res.render("user/login.ejs");
 });
@@ -35,5 +37,16 @@ router.post(
     res.redirect("/listings");
   }
 );
+
+//Logout functionality
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    req.flash("success", "You have been logged out!");
+    res.redirect("/listings");
+  });
+});
 
 module.exports = router;
