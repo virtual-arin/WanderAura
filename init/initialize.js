@@ -12,8 +12,7 @@ const initDB = async () => {
   await Listing.deleteMany({});
   initdata.data = initdata.data.map((obj) => ({
     ...obj,
-    price: obj.price || Math.floor(Math.random() * 5000) + 1000, // Add a default price
-    owner: "6685024a1071473f34388f8c",
+    owner: "68dfcc06a23450d85a3bf25d",
   }));
   await Listing.insertMany(initdata.data);
   console.log("data was initialized successfully");
