@@ -80,12 +80,10 @@
 
       <div class="mb-3">
         <label for="category" class="form-label">Category</label>
-        <% const categories = locals.categories || []; %>
         <select name="listing[category]" class="form-select" required>
-          <% for (let category of categories) { %>
-          <option value="<%= category.name %>" <%= listing.category === category.name ? 'selected' : '' %>>
-            <%= category.name %>
-          </option>
+          <% for (let cat of categories) { %>
+          <option value="<%= cat.name %>" <%= listing.category === cat.name ? 'selected' : '' %>>
+            <%= cat.name %></option>
           <% } %>
         </select>
         <div class="invalid-feedback">

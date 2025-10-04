@@ -5,7 +5,7 @@ module.exports.listings = async (req, res) => {
   const { category } = req.query;
   let allListings;
   if (category) {
-    allListings = await Listing.find({ category });
+    allListings = await Listing.find({ category: category });
   } else {
     allListings = await Listing.find({});
   }
