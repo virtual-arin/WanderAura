@@ -1,12 +1,14 @@
-<% layout("layouts/boilerplate") -%>
+<% layout("/layouts/boilerplate") %>
+
 <div class="row mt-3">
   <div class="col-8 offset-2">
     <h3>Edit your Listing</h3>
     <form
       method="POST"
-      action="/listings/<%=listing._id %>?_method=PUT"
+      action="/listings/<%= listing._id %>?_method=PUT"
       novalidate
       class="needs-validation"
+      enctype="multipart/form-data"
     >
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
@@ -17,7 +19,6 @@
           class="form-control"
           required
         />
-        <div class="invalid-feedback">You must add a title to proceed.</div>
         <div class="valid-feedback">Title looks good!</div>
       </div>
 
@@ -26,19 +27,17 @@
         <textarea name="listing[description]" class="form-control" required>
 <%= listing.description %></textarea
         >
-        <div class="valid-feedback">Description looks good!</div>
-        <div class="invalid-feedback">Please add a short description to proceed.
+        <div class="invalid-feedback">Please enter a short description.</div>
       </div>
 
       <div class="mb-3">
-        <label for="image" class="form-label">Image URL</label>
-        <input
-          name="listing[image]"
-          value="<%= listing.image.url %>"
-          type="text"
-          class="form-control"
-          required
-        />
+        Original Listing Image <br />
+        <img src="<%= listing.image.url %>" height="200" />
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Upload New Image</label>
+        <input name="listing[image]" type="file" class="form-control" />
       </div>
 
       <div class="row">
@@ -51,9 +50,9 @@
             class="form-control"
             required
           />
-          <div class="invalid-feedback">You must add a price to proceed.
-          </div>
+          <div class="invalid-feedback">Price should be a valid number.</div>
         </div>
+
         <div class="mb-3 col-md-8">
           <label for="country" class="form-label">Country</label>
           <input
@@ -63,10 +62,10 @@
             class="form-control"
             required
           />
-          <div class="invalid-feedback">You must add a country to proceed.
-          </div>
+          <div class="invalid-feedback">Country name should be valid.</div>
         </div>
       </div>
+
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
         <input
@@ -76,10 +75,10 @@
           class="form-control"
           required
         />
-        <div class="invalid-feedback">You must add a location to proceed.
-        </div>
+        <div class="invalid-feedback">Location should be valid.</div>
       </div>
-      <button class="btn btn-dark add-btn mt-3 mb-3">Save Changes</button>
+
+      <button class="btn btn-dark edit-btn mt-3">Edit</button>
     </form>
   </div>
 </div>
