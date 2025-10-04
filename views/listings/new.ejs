@@ -14,7 +14,6 @@
         <label for="title" class="form-label">Title</label>
         <input
           name="listing[title]"
-          placeholder="e.g., Cozy Beachfront Cottage"
           type="text"
           class="form-control"
           required
@@ -42,19 +41,13 @@
       <div class="row">
         <div class="mb-3 col-md-6">
           <label for="price" class="form-label">Price per night</label>
-          <input
-            name="listing[price]"
-            placeholder="1500"
-            class="form-control"
-            required
-          />
+          <input name="listing[price]" class="form-control" required />
           <div class="invalid-feedback">Price is required.</div>
         </div>
         <div class="mb-3 col-md-6">
           <label for="country" class="form-label">Country</label>
           <input
             name="listing[country]"
-            placeholder="e.g., India"
             type="text"
             class="form-control"
             required
@@ -67,7 +60,6 @@
         <label for="location" class="form-label">Location</label>
         <input
           name="listing[location]"
-          placeholder="e.g., Goa, India"
           type="text"
           class="form-control"
           required
@@ -77,6 +69,7 @@
 
       <div class="mb-3">
         <label for="category" class="form-label">Category</label>
+
         <select name="listing[category]" class="form-select" required>
           <option selected disabled value="">Choose a category</option>
           <% for (let category of categories) { %>
