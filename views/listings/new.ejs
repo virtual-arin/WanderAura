@@ -3,7 +3,13 @@
 <div class="row mt-3">
   <div class="col-lg-8 offset-lg-2">
     <h3>Create a New Listing</h3>
-    <form method="POST" action="/listings" novalidate class="needs-validation">
+    <form
+      method="POST"
+      action="/listings"
+      novalidate
+      class="needs-validation"
+      enctype="multipart/form-data"
+    >
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input
@@ -29,13 +35,8 @@
       </div>
 
       <div class="mb-3">
-        <label for="image" class="form-label">Image URL</label>
-        <input
-          name="listing[image]"
-          placeholder="https://example.com/image.png"
-          type="text"
-          class="form-control"
-        />
+        <label for="image" class="form-label">Upload image</label>
+        <input name="listing[image]" type="file" class="form-control" />
       </div>
 
       <div class="row">
@@ -72,6 +73,17 @@
           required
         />
         <div class="invalid-feedback">Location is required.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="category" class="form-label">Category</label>
+        <% const categories = locals.categories || []; %>
+        <select name="listing[category]" class="form-select" required>
+          <option selected disabled value="">Choose a category</option>
+          <% for (let category of categories) { %>
+          <option value="<%= category.name %>"><%= category.name %></option>
+          <% } %>
+        </select>
       </div>
 
       <button class="btn btn-dark add-btn mt-3">Add Listing</button>

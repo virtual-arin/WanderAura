@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
+
+dotenv.config();
+
 const connectDatabase = require("./db.js");
 const path = require("path");
 const methodOverride = require("method-override");
@@ -15,7 +18,6 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.model.js");
 
-dotenv.config();
 const port = process.env.PORT;
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
